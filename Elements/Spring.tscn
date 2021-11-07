@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/spring.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/tilemap.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 100, 18, 18 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 9, 9 )
+
+[node name="Spring" type="Sprite"]
+position = Vector2( 171, -9 )
+texture = SubResource( 7 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+shape = SubResource( 8 )
+
+[connection signal="body_entered" from="Area" to="." method="_on_body_entered"]

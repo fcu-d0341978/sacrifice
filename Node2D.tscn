@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/Blocks/Switch.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Tileset/tilesetNormal.tres" type="TileSet" id=3]
+[ext_resource path="res://Prefabs/Blocks/SwitchBlockB.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Blocks/SwitchBlockR.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Shader/fog.gdshader" type="Shader" id=6]
+[ext_resource path="res://icon.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Backgrounds/parallax-03.png" type="Texture" id=8]
+[ext_resource path="res://Shader/glitch.gdshader" type="Shader" id=9]
+[ext_resource path="res://Sprites/Backgrounds/parallax-02.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Backgrounds/parallax-00.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Backgrounds/parallax-01.png" type="Texture" id=12]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 9 )
+shader_param/shake_power = 0.03
+shader_param/shake_rate = 0.2
+shader_param/shake_speed = 5.0
+shader_param/shake_block_size = 30.5
+shader_param/shake_color_rate = 0.01
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 6 )
+shader_param/color = Vector3( 0.35, 0.48, 0.95 )
+shader_param/OCTAVES = 4
+
+[node name="Level" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1440, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 11 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 1440, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 12 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 1440, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource( 10 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1440, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource( 8 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( -16, -8 )
+z_index = 10
+
+[node name="glitch" type="Sprite" parent="Player"]
+visible = false
+material = SubResource( 1 )
+texture = ExtResource( 7 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -327591, 0, 0, -262086, 0, 0, -262085, 0, 0, -262084, 0, 0, -262055, 0, 0, -196545, 0, 0, -196544, 0, 0, -196543, 0, 0, -196542, 0, 0, -196541, 0, 0, -196519, 0, 0, -196510, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131021, 0, 0, -131020, 0, 0, -131001, 0, 0, -131000, 0, 0, -130999, 0, 0, -130998, 0, 0, -130997, 0, 0, -130996, 0, 0, -130995, 0, 0, -130994, 0, 0, -130993, 0, 0, -130992, 0, 0, -130991, 0, 0, -130990, 0, 0, -130989, 0, 0, -130983, 0, 0, -130974, 0, 0, -12, 0, 0, -65482, 0, 0, -65481, 0, 0, -65447, 0, 0, -65438, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 58, 0, 0, 59, 0, 0, 60, 0, 0, 61, 0, 0, 89, 0, 0, 98, 0, 0, 131062, 0, 0, 65622, 0, 0, 65625, 0, 0, 65634, 0, 0, 196598, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 131094, 0, 0, 131095, 0, 0, 131096, 0, 0, 131097, 0, 0, 131098, 0, 0, 131099, 0, 0, 131100, 0, 0, 131101, 0, 0, 131102, 0, 0, 131103, 0, 0, 131104, 0, 0, 131105, 0, 0, 131106, 0, 0, 131107, 0, 0, 131108, 0, 0, 131109, 0, 0, 131110, 0, 0, 131111, 0, 0, 131112, 0, 0, 131113, 0, 0, 131114, 0, 0, 131115, 0, 0, 131116, 0, 0, 131117, 0, 0, 131118, 0, 0, 131119, 0, 0, 131120, 0, 0, 131121, 0, 0, 131122, 0, 0, 131123, 0, 0, 131124, 0, 0, 131125, 0, 0, 131126, 0, 0, 131127, 0, 0, 131128, 0, 0, 131129, 0, 0, 131130, 0, 0, 131131, 0, 0, 131132, 0, 0, 131133, 0, 0, 131134, 0, 0, 131135, 0, 0, 131136, 0, 0, 131137, 0, 0, 131138, 0, 0, 131139, 0, 0, 131140, 0, 0, 131141, 0, 0, 131142, 0, 0, 131143, 0, 0, 131144, 0, 0, 131145, 0, 0, 131146, 0, 0, 131147, 0, 0, 131148, 0, 0, 131149, 0, 0, 131150, 0, 0, 131151, 0, 0, 131152, 0, 0, 131153, 0, 0, 131154, 0, 0, 131155, 0, 0, 131156, 0, 0, 131157, 0, 0, 131158, 0, 0, 131159, 0, 0, 131161, 0, 0, 131170, 0, 0, 196689, 0, 0, 196697, 0, 0, 196706, 0, 0, 262225, 0, 0, 262242, 0, 0, 327761, 0, 0, 327778, 0, 0, 393297, 0, 0, 393298, 0, 0, 393299, 0, 0, 393300, 0, 0, 393301, 0, 0, 393302, 0, 0, 393303, 0, 0, 393304, 0, 0, 393305, 0, 0, 393312, 0, 0, 393313, 0, 0, 393314, 0, 0, 458842, 0, 0, 458843, 0, 0, 458844, 0, 0, 458845, 0, 0, 458846, 0, 0, 458847, 0, 0, 458848, 0, 0, 458849, 0, 0 )
+
+[node name="SwitchBlockB" parent="." instance=ExtResource( 4 )]
+position = Vector2( -128, -56 )
+
+[node name="SwitchBlockR" parent="." instance=ExtResource( 5 )]
+position = Vector2( -80, -56 )
+
+[node name="Switch" parent="." instance=ExtResource( 2 )]
+position = Vector2( -104, -104 )
+switchOn = true
+
+[node name="fog" type="Sprite" parent="."]
+material = SubResource( 2 )
+position = Vector2( 284, -4 )
+scale = Vector2( 18.375, 10 )
+texture = ExtResource( 7 )
+
+[node name="godLight" type="Sprite" parent="."]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 16, -4 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 7 )
+
+[editable path="SwitchBlockB"]

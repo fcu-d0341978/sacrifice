@@ -1,0 +1,276 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/tilemap.tres" type="TileSet" id=3]
+[ext_resource path="res://Elements/Spring.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Elements/Block.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Elements/Ladder.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sprites/light.png" type="Texture" id=7]
+[ext_resource path="res://Elements/Debris.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/background.tres" type="TileSet" id=9]
+[ext_resource path="res://Elements/Coin.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sprites/beetle.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/beetle.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/bat.gd" type="Script" id=13]
+[ext_resource path="res://Sprites/bat.png" type="Texture" id=14]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 11 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 11 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 14 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 14 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[node name="Game" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 18, 18 )
+cell_clip_uv = true
+format = 1
+tile_data = PoolIntArray( -1310730, 0, 393220, -1310728, 0, 393225, -1245195, 0, 131079, -1245194, 0, 131080, -1245193, 0, 131081, -1245192, 0, 131082, -1179657, 0, 196617, -1114121, 0, 262153, -1179644, 0, 131079, -1048587, 0, 262152, -1048585, 0, 262153, -1048583, 0, 393221, -1114108, 0, 196617, -983054, 0, 131081, -983053, 0, 131081, -983052, 0, 131081, -983051, 0, 131081, -983050, 0, 131082, -983049, 0, 262153, -983048, 0, 131080, -983047, 0, 131082, -1048572, 0, 262153, -917513, 0, 262153, -917510, 0, 393220, -917508, 0, 393224, -983036, 0, 262153, -851977, 0, 262153, -851975, 0, 131079, -851974, 0, 131080, -851973, 0, 131081, -851972, 0, 131082, -851971, 0, 131079, -917500, 0, 262153, -786441, 0, 262153, -786437, 0, 196617, -851964, 0, 262153, -720905, 0, 262153, -720901, 0, 262153, -786428, 0, 262153, -655369, 0, 327689, -655365, 0, 262153, -655363, 0, 393221, -720892, 0, 262153, -720861, 0, 393220, -720859, 0, 393224, -589834, 0, 131080, -589833, 0, 131081, -589832, 0, 131081, -589831, 0, 131081, -589830, 0, 131082, -589829, 0, 262153, -589828, 0, 131080, -589827, 0, 131082, -655337, 0, 131079, -655336, 0, 262154, -655335, 0, 262155, -655334, 0, 262155, -655333, 0, 262155, -655332, 0, 262155, -655331, 0, 262155, -655330, 0, 262155, -655329, 0, 262155, -655328, 0, 262155, -655327, 0, 262156, -655326, 0, 131079, -655325, 0, 131080, -655324, 0, 131081, -655323, 0, 131082, -655322, 0, 131079, -524293, 0, 262153, -589788, 0, 196617, -458757, 0, 262153, -524252, 0, 262153, -393221, 0, 262153, -458738, 536870912, 393220, -458736, 0, 131083, -458734, 0, 262152, -458716, 0, 262153, -458714, 0, 393221, -327685, 0, 262153, -393213, 0, 131079, -393205, 0, 131079, -393204, 0, 131080, -393203, 536870912, 131081, -393202, 536870912, 131080, -393201, 0, 131079, -393200, 0, 196619, -393199, 0, 131080, -393198, 0, 131081, -393197, 0, 131082, -393182, 0, 131080, -393181, 0, 131082, -393180, 0, 262153, -393179, 0, 131080, -393178, 0, 131082, -262153, 536870912, 393221, -262151, 536870912, 393220, -262149, 0, 327689, -327664, 0, 196619, -327644, 0, 262153, -196618, 536870912, 131079, -196617, 0, 131080, -196616, 0, 131081, -196615, 0, 131081, -196614, 0, 131081, -196613, 0, 131081, -196612, 536870912, 131080, -196611, 536870912, 131079, -262128, 0, 196619, -262108, 0, 262153, -131077, 1073741824, 393221, -196592, 0, 196619, -196572, 0, 262153, -65538, 0, 131080, -65537, 0, 131081, -131072, 0, 131081, -131071, 0, 131081, -131070, 0, 131081, -131069, 0, 131082, -131056, 0, 196619, -131036, 0, 262153, -65520, 0, 196619, -65506, 0, 393220, -65504, 0, 327686, -65502, 536870912, 393220, -65500, 0, 327689, -65499, 0, 327686, 4, 0, 393225, 8, 0, 131080, 9, 536870912, 131081, 10, 536870912, 131080, 11, 536870912, 131079, 16, 0, 196619, 28, 0, 131079, 29, 0, 131081, 30, 0, 131081, 31, 0, 131081, 32, 0, 131081, 33, 0, 131081, 34, 0, 131081, 35, 0, 131081, 36, 0, 131081, 37, 536870912, 131080, 38, 536870912, 131079, 65540, 0, 131080, 65541, 536870912, 131081, 65542, 536870912, 131080, 65552, 0, 196619, 65564, -1610612736, 131081, 131073, 536870912, 393220, 131087, 0, 393220, 131088, 0, 196619, 131092, 0, 131079, 131097, 536870912, 393221, 131099, 0, 131079, 131100, -1610612736, 131081, 262140, 536870912, 131079, 262141, 0, 131080, 262142, 0, 131081, 262143, 0, 131081, 196608, 0, 131081, 196609, 0, 131081, 196610, 536870912, 131080, 196611, 536870912, 131079, 196623, 0, 131080, 196624, 0, 131081, 196625, 0, 131082, 196628, 0, 131080, 196629, 0, 131081, 196630, 0, 131081, 196631, 0, 131081, 196632, 0, 131081, 196633, 0, 131081, 196634, 0, 131081, 196635, 0, 131082, 196636, 0, 131079 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Light1" type="Light2D" parent="Lights"]
+position = Vector2( -63, -9 )
+texture = ExtResource( 7 )
+color = Color( 0, 0.203922, 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2" type="Light2D" parent="Lights"]
+position = Vector2( 207, -63 )
+texture = ExtResource( 7 )
+color = Color( 0, 0.203922, 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light3" type="Light2D" parent="Lights"]
+position = Vector2( 603, 81 )
+texture = ExtResource( 7 )
+color = Color( 0, 0.203922, 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Spring" parent="Level" instance=ExtResource( 4 )]
+
+[node name="Block6" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( -45, -315 )
+debris = ExtResource( 8 )
+
+[node name="Block7" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( -63, -315 )
+debris = ExtResource( 8 )
+
+[node name="Block8" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( -153, -423 )
+debris = ExtResource( 8 )
+
+[node name="Block2" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( 225, -171 )
+debris = ExtResource( 8 )
+
+[node name="Block3" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( 243, -171 )
+debris = ExtResource( 8 )
+
+[node name="Block4" parent="Level" instance=ExtResource( 5 )]
+debris = ExtResource( 8 )
+
+[node name="Block5" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( 513, -63 )
+debris = ExtResource( 8 )
+
+[node name="Block9" parent="Level" instance=ExtResource( 5 )]
+position = Vector2( 585, -63 )
+debris = ExtResource( 8 )
+
+[node name="Rope" parent="Level" instance=ExtResource( 6 )]
+scale = Vector2( 0.25, 1 )
+
+[node name="Rope5" parent="Level" instance=ExtResource( 6 )]
+position = Vector2( 657, -81 )
+scale = Vector2( 0.25, 1 )
+
+[node name="Rope6" parent="Level" instance=ExtResource( 6 )]
+position = Vector2( 522, -171 )
+scale = Vector2( 9, 0.05 )
+
+[node name="Rope2" parent="Level" instance=ExtResource( 6 )]
+position = Vector2( -153, -261 )
+scale = Vector2( 0.25, 1 )
+
+[node name="Rope3" parent="Level" instance=ExtResource( 6 )]
+position = Vector2( 81, -243 )
+scale = Vector2( 0.25, 0.8 )
+
+[node name="Rope4" parent="Level" instance=ExtResource( 6 )]
+position = Vector2( 297, -34 )
+scale = Vector2( 0.25, 1.1 )
+
+[node name="Coin" parent="Level" instance=ExtResource( 10 )]
+
+[node name="Coin2" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( 171, -99 )
+
+[node name="Coin3" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( 171, -135 )
+
+[node name="Coin4" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( 81, -351 )
+
+[node name="Coin6" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( -63, -351 )
+
+[node name="Coin7" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( -45, -351 )
+
+[node name="Coin8" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( 171, -279 )
+
+[node name="Coin9" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( 513, -99 )
+
+[node name="Coin11" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( 657, -225 )
+
+[node name="Coin10" parent="Level" instance=ExtResource( 10 )]
+position = Vector2( -135, -117 )
+
+[node name="Beetle" type="KinematicBody2D" parent="Level"]
+position = Vector2( 405, 45 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="Level/Beetle"]
+position = Vector2( 0, -4 )
+frames = SubResource( 4 )
+animation = "walk"
+playing = true
+
+[node name="Shape" type="CollisionShape2D" parent="Level/Beetle"]
+shape = SubResource( 5 )
+
+[node name="Bat" type="KinematicBody2D" parent="Level"]
+position = Vector2( 207, -45 )
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+movementSpeed = 30
+
+[node name="Sprite" type="AnimatedSprite" parent="Level/Bat"]
+position = Vector2( 0, -4 )
+frames = SubResource( 9 )
+playing = true
+
+[node name="Shape" type="CollisionShape2D" parent="Level/Bat"]
+shape = SubResource( 5 )
+
+[node name="Bat3" type="KinematicBody2D" parent="Level"]
+position = Vector2( 621, -45 )
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+movementSpeed = 30
+
+[node name="Sprite" type="AnimatedSprite" parent="Level/Bat3"]
+position = Vector2( 0, -4 )
+frames = SubResource( 9 )
+playing = true
+
+[node name="Shape" type="CollisionShape2D" parent="Level/Bat3"]
+shape = SubResource( 5 )
+
+[node name="Bat2" type="KinematicBody2D" parent="Level"]
+position = Vector2( -171, -117 )
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+movementSpeed = 30
+
+[node name="Sprite" type="AnimatedSprite" parent="Level/Bat2"]
+position = Vector2( 0, -4 )
+frames = SubResource( 9 )
+playing = true
+flip_h = true
+
+[node name="Shape" type="CollisionShape2D" parent="Level/Bat2"]
+shape = SubResource( 5 )
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="Layer" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2( 0.5, 0.5 )
+
+[node name="TileMap" type="TileMap" parent="Background/Layer"]
+tile_set = ExtResource( 9 )
+cell_size = Vector2( 24, 24 )
+format = 1
+tile_data = PoolIntArray( -524281, 0, 0, -458745, 0, 131072, -327690, 0, 2, -393209, 0, 131072, -393200, 0, 0, -262154, 0, 131074, -327673, 0, 65536, -327664, 0, 131072, -196618, 0, 131074, -262137, 0, 131072, -262128, 0, 65536, -131082, 0, 65538, -196607, 0, 0, -196601, 0, 131072, -196598, 0, 1, -196592, 0, 131072, -65546, 0, 131074, -131071, 0, 131072, -131070, 0, 1, -131065, 0, 131072, -131063, 0, 1, -131062, 0, 131073, -131056, 0, 131072, -10, 0, 131074, -9, 0, 0, -65536, 0, 0, -65535, 0, 131072, -65534, 0, 131073, -65529, 0, 131072, -65527, 0, 131073, -65526, 0, 131073, -65523, 0, 1, -65520, 0, 131072, 65526, 0, 131074, 65527, 0, 131072, 0, 0, 131072, 1, 0, 65536, 2, 0, 131073, 7, 0, 131072, 9, 0, 131073, 10, 0, 131073, 13, 0, 131073, 16, 0, 131072, 131062, 0, 131074, 131063, 0, 65536, 131068, 0, 1, 65536, 0, 131072, 65537, 0, 131072, 65538, 0, 65537, 65543, 0, 131072, 65545, 0, 131073, 65546, 0, 65537, 65549, 0, 131073, 65552, 0, 131072, 196598, 0, 65538, 196599, 0, 131072, 196604, 0, 131073, 131072, 0, 131072, 131073, 0, 131072, 131074, 0, 131073, 131079, 0, 131072, 131081, 0, 131073, 131082, 0, 131073, 131085, 0, 131073, 131088, 0, 131072, 262134, 0, 131074, 262135, 0, 131072, 262138, 0, 0, 262140, 0, 65537, 196608, 0, 65536, 196609, 0, 131072, 196610, 0, 131073, 196613, 0, 2, 196615, 0, 65536, 196617, 0, 65537, 196618, 0, 131073, 196621, 0, 131073, 196624, 0, 131072, 327670, 0, 131074, 327671, 0, 131072, 327674, 0, 131072, 327676, 0, 131073, 262144, 0, 131072, 262145, 0, 131072, 262146, 0, 65537, 262149, 0, 65538, 262151, 0, 131072, 262153, 0, 131073, 262154, 0, 131073, 262157, 0, 65537, 262160, 0, 131072, 393206, 0, 131074, 393207, 0, 131072, 393210, 0, 65536, 393212, 0, 131073, 327680, 0, 131072, 327681, 0, 131072, 327682, 0, 131073, 327685, 0, 131074, 327687, 0, 131072, 327689, 0, 131073, 327690, 0, 131073, 327693, 0, 131073, 327696, 0, 131072, 458742, 0, 131074, 458743, 0, 131072, 458746, 0, 131072, 458748, 0, 131073, 393216, 0, 131072, 393217, 0, 131072, 393218, 0, 131073, 393221, 0, 131074, 393223, 0, 131072, 393225, 0, 131073, 393226, 0, 131073, 393229, 0, 131073, 393232, 0, 131072 )
+
+[connection signal="body_entered" from="Level/Rope" to="Level/Rope" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Rope" to="Level/Rope" method="_on_body_exited"]
+[connection signal="body_entered" from="Level/Rope5" to="Level/Rope5" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Rope5" to="Level/Rope5" method="_on_body_exited"]
+[connection signal="body_entered" from="Level/Rope6" to="Level/Rope6" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Rope6" to="Level/Rope6" method="_on_body_exited"]
+[connection signal="body_entered" from="Level/Rope2" to="Level/Rope2" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Rope2" to="Level/Rope2" method="_on_body_exited"]
+[connection signal="body_entered" from="Level/Rope3" to="Level/Rope3" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Rope3" to="Level/Rope3" method="_on_body_exited"]
+[connection signal="body_entered" from="Level/Rope4" to="Level/Rope4" method="_on_body_entered"]
+[connection signal="body_exited" from="Level/Rope4" to="Level/Rope4" method="_on_body_exited"]

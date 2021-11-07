@@ -1,0 +1,188 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Sprites/Ryu/ryu.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/player.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 5.0
+angle = 90.0
+angle_random = 1.0
+scale = 3.0
+scale_random = 1.0
+color_ramp = SubResource( 2 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 24, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 60, 24, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 40, 24, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 24, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 40, 24, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 60, 24, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 0, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 40, 0, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 72, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 72, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 40, 72, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 264, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 264, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 40, 264, 20, 24 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 24, 20, 24 )
+
+[sub_resource type="SpriteFrames" id=20]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "walk",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "edge",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 17 ) ],
+"loop": true,
+"name": "climb",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 19 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 5, 8.34969 )
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 3.8082, 4 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"npc",
+"player",
+]]
+collision_layer = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Dust" type="Particles2D" parent="."]
+position = Vector2( 0, 10 )
+amount = 16
+local_coords = false
+process_material = SubResource( 3 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 20 )
+animation = "idle"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 3.60689 )
+shape = SubResource( 21 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+limit_left = -240
+limit_bottom = 120
+limit_smoothed = true
+smoothing_enabled = true
+
+[node name="Head" type="Area2D" parent="."]
+position = Vector2( -0.0667953, -7.5267 )
+
+[node name="Shape" type="CollisionShape2D" parent="Head"]
+shape = SubResource( 22 )
+
+[node name="Bottom" type="Area2D" parent="."]
+position = Vector2( 0, 11 )
+
+[node name="Shape" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource( 22 )
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+process_mode = 0
+
+[node name="BufferTimer" type="Timer" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -5, 0 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 20 )
+
+[connection signal="body_entered" from="Head" to="." method="_on_head_entered"]
+[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_entered"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="BufferTimer" to="." method="_on_BufferTimer_timeout"]
